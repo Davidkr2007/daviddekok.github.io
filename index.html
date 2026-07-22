@@ -3,146 +3,471 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>David de Kok</title>
-<meta name="description" content="Persoonlijke site van David de Kok.">
+<title>David de Kok - Network &amp; NOC Engineer</title>
+<meta name="description" content="David de Kok, netwerk- en NOC-engineer uit Rotterdam. Netwerken, security en automatisering.">
+<meta name="author" content="David de Kok">
+<meta property="og:title" content="David de Kok">
+<meta property="og:description" content="Netwerk- en NOC-engineer uit Rotterdam.">
+<meta property="og:type" content="website">
 
-<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-
-<style>
-:root{
-  --bg:#141519;
-  --text:#eae7e1;
-  --muted:#8c8e98;
-  --line:#2a2c33;
-  --accent:#e3a857;
-  --maxw:640px;
-}
-
-*{box-sizing:border-box;margin:0;padding:0;}
-html{-webkit-text-size-adjust:100%;}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:"IBM Plex Sans",system-ui,sans-serif;
-  font-size:17px;
-  line-height:1.6;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  padding:clamp(1.5rem,5vw,4rem);
-  -webkit-font-smoothing:antialiased;
-}
-
-.wrap{width:100%;max-width:var(--maxw);margin:auto;}
-
-/* status line (het mono-regeltje bovenaan) */
-.status{
-  font-family:"IBM Plex Mono",monospace;
-  font-size:0.82rem;
-  letter-spacing:0.02em;
-  color:var(--muted);
-  margin-bottom:2.2rem;
-}
-.status .prompt{color:var(--accent);}
-
-/* naam */
-.name{
-  font-family:"Space Grotesk",sans-serif;
-  font-weight:700;
-  font-size:clamp(2.6rem,9vw,4.2rem);
-  line-height:1.02;
-  letter-spacing:-0.02em;
-}
-.name .caret{color:var(--accent);font-weight:500;}
-
-/* tagline */
-.tagline{
-  font-family:"Space Grotesk",sans-serif;
-  font-weight:500;
-  font-size:clamp(1.05rem,3.5vw,1.35rem);
-  margin-top:1rem;
-}
-
-/* intro */
-.intro{color:var(--muted);margin-top:1.4rem;max-width:52ch;}
-
-/* links */
-.links{margin-top:2.6rem;display:flex;flex-wrap:wrap;gap:0.6rem 1.8rem;}
-.links a{
-  font-family:"IBM Plex Mono",monospace;
-  font-size:0.9rem;
-  color:var(--text);
-  text-decoration:none;
-  position:relative;
-  padding:0.15rem 0;
-}
-.links a::before{content:"→ ";color:var(--muted);}
-.links a::after{
-  content:"";
-  position:absolute;left:0;right:0;bottom:-2px;
-  height:1px;background:var(--accent);
-  transform:scaleX(0);transform-origin:left;
-  transition:transform 0.22s ease;
-}
-.links a:hover,.links a:focus-visible{color:var(--accent);}
-.links a:hover::after,.links a:focus-visible::after{transform:scaleX(1);}
-
-/* footer */
-.foot{
-  font-family:"IBM Plex Mono",monospace;
-  font-size:0.75rem;
-  color:var(--muted);
-  margin-top:auto;
-  padding-top:3rem;
-}
-.foot .dot{color:var(--accent);}
-
-/* keyboard focus */
-a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
-
-/* load-in */
-.reveal{opacity:0;transform:translateY(10px);animation:up 0.7s cubic-bezier(.2,.7,.2,1) forwards;}
-.d2{animation-delay:0.10s;}
-.d3{animation-delay:0.18s;}
-.d4{animation-delay:0.26s;}
-@keyframes up{to{opacity:1;transform:none;}}
-
-@media (prefers-reduced-motion:reduce){
-  .reveal{animation:none;opacity:1;transform:none;}
-  .links a::after{transition:none;}
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="wrap">
 
-    <!-- WIJZIG: het mono-regeltje bovenaan. Zet hier bijv. je rol of focus. -->
-    <p class="status reveal"><span class="prompt">~</span> IT &amp; automation</p>
+<!-- ============================ NAV ============================ -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">daviddekok<span class="tld">.nl</span><span class="flag" aria-hidden="true"><i></i><i></i><i></i></span></a>
+    <div class="nav-right">
+      <nav class="nav-links" id="navLinks">
+        <a href="#over" data-en="about me">over mij</a>
+        <a href="#ervaring" data-en="experience">ervaring</a>
+        <a href="#opleiding" data-en="education">opleiding</a>
+        <a href="#certificaten" data-en="certificates">certificaten</a>
+        <a href="#projecten" data-en="projects">projecten</a>
+        <a href="#contact" data-en="contact">contact</a>
+      </nav>
+      <div class="lang" aria-label="Taal / Language">
+        <button type="button" data-lang="nl" class="active">NL</button><span class="sep">/</span><button type="button" data-lang="en">EN</button>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
 
-    <!-- WIJZIG: je naam -->
-    <h1 class="name reveal">David de Kok<span class="caret" aria-hidden="true">_</span></h1>
-
-    <!-- WIJZIG: één regel die zegt wat je doet -->
-    <p class="tagline reveal d2">Ik bouw en automatiseer dingen.</p>
-
-    <!-- WIJZIG: korte intro, één of twee zinnen -->
-    <p class="intro reveal d3">Korte introductie over jezelf komt hier. Houd het direct en persoonlijk: wat je doet, waar je mee bezig bent, en waarom iemand hier terechtkomt.</p>
-
-    <!-- WIJZIG: je links. Vul de href in tussen de aanhalingstekens. Regels weghalen mag ook. -->
-    <nav class="links reveal d4">
-      <a href="#">GitHub</a>
-      <a href="#">LinkedIn</a>
-      <a href="#">Socials</a>
-      <a href="mailto:jij@daviddekok.nl">E-mail</a>
+<!-- ============================ HERO ============================ -->
+<section class="hero" id="top">
+  <canvas id="net-canvas"></canvas>
+  <div class="wrap hero-inner">
+    <p class="status reveal in"><span class="tilde">~</span> network / noc engineer &middot; rotterdam</p>
+    <h1 class="reveal in d1">David de Kok<span class="caret" aria-hidden="true">_</span></h1>
+    <p class="tagline reveal in d2" data-en="I manage, secure and automate networks.">Ik beheer, beveilig en automatiseer netwerken.</p>
+    <nav class="hero-links reveal in d2" aria-label="Snelle links">
+      <a class="alink" href="https://github.com/Davidkr2007" target="_blank" rel="noopener">GitHub</a>
+      <a class="alink" href="https://www.linkedin.com/in/david-de-kok-258004350" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="alink" href="mailto:daviddekok2007@gmail.com" data-en="Email">E-mail</a>
     </nav>
+  </div>
+  <span class="scroll-hint" aria-hidden="true">scroll</span>
+</section>
 
-    <!-- WIJZIG: footer -->
-    <footer class="foot reveal d4">daviddekok.nl <span class="dot">&bull;</span> 2026</footer>
+<main>
+<!-- ============================ 01 OVER MIJ ============================ -->
+<section class="section" id="over">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title" data-en="Who am I?">Wie ben ik?</h2>
+    </div>
+    <div class="about-grid">
+      <img class="avatar reveal" src="assets/img/david.png" alt="Foto van David de Kok" width="336" height="336">
+      <div class="about-body reveal d1">
+        <p class="lead" data-en="I'm David de Kok, a network and NOC engineer from Rotterdam.">Ik ben David de Kok, een netwerk- en NOC-engineer uit Rotterdam.</p>
+        <p data-en="I work with networks, security and automation. From the NOC I keep networks running and secure, and I automate recurring work with &lt;strong&gt;Python&lt;/strong&gt;.">Ik werk met netwerken, security en automatisering. Vanuit het NOC zorg ik dat netwerken blijven draaien en veilig blijven, en terugkerend werk automatiseer ik met <strong>Python</strong>.</p>
+        <p data-en="Alongside my job I study &lt;strong&gt;Business IT &amp;amp; Management&lt;/strong&gt; at Rotterdam University of Applied Sciences.">Naast mijn werk studeer ik <strong>Business IT &amp; Management</strong> aan de Hogeschool Rotterdam.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  </main>
+<!-- ============================ 02 WERKERVARING ============================ -->
+<section class="section" id="ervaring">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title" data-en="Work experience">Werkervaring</h2>
+    </div>
+
+    <div class="rows reveal">
+      <!-- Pinewood -->
+      <article class="row">
+        <div class="r-logo"><img src="assets/logos/pinewood.png" alt="Pinewood logo"></div>
+        <div>
+          <h3 class="r-role">Network / NOC Engineer</h3>
+          <p class="r-org">Pinewood</p>
+          <p class="r-meta" data-en="delft &middot; full-time">delft &middot; voltijd</p>
+          <p class="r-desc" data-en="At the Network Operations Center I monitor and manage customer networks. I work with Fortinet FortiGates on a daily basis.">Op het Network Operations Center monitor en beheer ik netwerken van klanten. Daarbij werk ik dagelijks met Fortinet FortiGates.</p>
+          <button class="ptoggle" aria-expanded="false" aria-controls="foto-pinewood"><span class="chev">&#x25B8;</span> <span data-en="photo">foto</span></button>
+          <div class="r-photo" id="foto-pinewood">
+            <img src="assets/img/werk/pinewood.jpg" alt="Network Operations Center met monitoringschermen" loading="lazy">
+          </div>
+        </div>
+        <span class="r-date" data-en="jan 2026 - present">jan 2026 - heden</span>
+      </article>
+
+      <!-- SSC-ICT / BZK -->
+      <article class="row">
+        <div class="r-logo"><img src="assets/logos/rijksoverheid.png" alt="Rijksoverheid logo"></div>
+        <div>
+          <h3 class="r-role">Network Engineer</h3>
+          <p class="r-org">Ministerie van Binnenlandse Zaken &middot; SSC-ICT</p>
+          <p class="r-meta" data-en="the hague &middot; internship">den haag &middot; stage</p>
+          <p class="r-desc" data-en="At the NOC I monitored and maintained the networks and systems of nine ministries, including MinBuZa and MinJenV. I also contributed to &lt;a href=&quot;https://www.digitaleoverheid.nl/nieuws/departementen-kiezen-voor-veilige-ai-chatbot-van-ssc-ict/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;vlam.ai&lt;/a&gt;, a locally hosted AI solution by SSC-ICT.">Op het NOC monitorde en onderhield ik netwerken en systemen van negen ministeries, waaronder MinBuZa en MinJenV. Ook werkte ik mee aan <a href="https://www.digitaleoverheid.nl/nieuws/departementen-kiezen-voor-veilige-ai-chatbot-van-ssc-ict/" target="_blank" rel="noopener">vlam.ai</a>, een lokaal draaiende AI-oplossing van SSC-ICT.</p>
+          <button class="ptoggle" aria-expanded="false" aria-controls="foto-bzk"><span class="chev">&#x25B8;</span> <span data-en="photo">foto</span></button>
+          <div class="r-photo" id="foto-bzk">
+            <img src="assets/img/werk/minbzk.jpg" alt="Ministerie van Binnenlandse Zaken en Koninkrijksrelaties in Den Haag" loading="lazy">
+          </div>
+        </div>
+        <span class="r-date">apr 2025 - dec 2025</span>
+      </article>
+
+      <!-- YoungOnes -->
+      <article class="row">
+        <div class="r-logo"><img src="assets/logos/youngones.png" alt="YoungOnes logo"></div>
+        <div>
+          <h3 class="r-role">Freelancer</h3>
+          <p class="r-org">YoungOnes</p>
+          <p class="r-meta">rotterdam &middot; freelance</p>
+          <p class="r-desc" data-en="A wide range of freelance jobs across different sectors, flexible alongside school and work.">Uiteenlopende freelance-opdrachten in verschillende sectoren, flexibel naast school en werk.</p>
+          <button class="ptoggle" aria-expanded="false" aria-controls="foto-yo"><span class="chev">&#x25B8;</span> <span data-en="photo">foto</span></button>
+          <div class="r-photo" id="foto-yo">
+            <img src="assets/img/werk/youngones.png" alt="YoungOnes" loading="lazy">
+          </div>
+        </div>
+        <span class="r-date">aug 2024 - dec 2025</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 03 OPLEIDING ============================ -->
+<section class="section" id="opleiding">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title" data-en="Education">Opleiding</h2>
+    </div>
+
+    <div class="rows reveal">
+      <article class="row edu-hr">
+        <div class="r-logo"><img src="assets/logos/hogeschoolrotterdam.png" alt="Hogeschool Rotterdam logo"></div>
+        <div>
+          <h3 class="r-role">Bachelor Business IT &amp; Management</h3>
+          <p class="r-org" data-en="Rotterdam University of Applied Sciences">Hogeschool Rotterdam</p>
+          <p class="r-meta" data-en="part-time &middot; bachelor of science">deeltijd &middot; hbo-bachelor</p>
+          <button class="ptoggle" aria-expanded="false" aria-controls="cijfers-hbo"><span class="chev">&#x25B8;</span> <span data-en="grades">cijfers</span></button>
+          <div class="r-photo grades" id="cijfers-hbo">
+            <div class="grade-avg">
+              <span class="ga-label" data-en="average">gemiddelde</span>
+              <span class="ga-num">9,2</span>
+            </div>
+            <div class="grade-rows">
+              <div class="grade-row prop">
+                <span class="g-sem">S1</span><span class="g-vak">Creating Added Value</span><span class="g-pts">30 ec</span><span class="g-cijfer">9,2</span>
+              </div>
+              <div class="grade-row prop">
+                <span class="g-sem">S2</span><span class="g-vak" data-en="Data Driven Organizing">Data Driven Organiseren</span><span class="g-pts">30 ec</span><span class="g-cijfer bezig" data-en="in progress">bezig</span>
+              </div>
+              <div class="grade-row">
+                <span class="g-sem">S3</span><span class="g-vak">Business &amp; IT Alignment</span><span class="g-pts">30 ec</span><span class="g-cijfer leeg">-</span>
+              </div>
+              <div class="grade-row">
+                <span class="g-sem">S4</span><span class="g-vak" data-en="Strategic Management">Strategisch Management</span><span class="g-pts">30 ec</span><span class="g-cijfer leeg">-</span>
+              </div>
+              <div class="grade-row">
+                <span class="g-sem">S5</span><span class="g-vak">Artificial Intelligence &amp; Data Science</span><span class="g-pts">30 ec</span><span class="g-cijfer leeg">-</span>
+              </div>
+              <div class="grade-row">
+                <span class="g-sem">S6</span><span class="g-vak">Information Security</span><span class="g-pts">30 ec</span><span class="g-cijfer leeg">-</span>
+              </div>
+              <div class="grade-row">
+                <span class="g-sem">S7</span><span class="g-vak" data-en="System Design and Implementation">Systeemontwerp en Implementatie</span><span class="g-pts">30 ec</span><span class="g-cijfer leeg">-</span>
+              </div>
+              <div class="grade-row">
+                <span class="g-sem">S8</span><span class="g-vak">AI</span><span class="g-pts">30 ec</span><span class="g-cijfer leeg">-</span>
+              </div>
+            </div>
+            <p class="grade-note"><span class="prop-dot"></span> <span data-en="propaedeutic phase (60 credits)">propedeuse (60 studiepunten)</span></p>
+          </div>
+        </div>
+        <span class="r-date">feb 2026 - feb 2030</span>
+      </article>
+
+      <article class="row edu-tcr">
+        <div class="r-logo"><img src="assets/logos/techniekcollege.svg" alt="Techniek College Rotterdam logo"></div>
+        <div>
+          <h3 class="r-role">Expert IT Systems and Devices</h3>
+          <p class="r-org">Techniek College Rotterdam</p>
+          <p class="r-meta" data-en="mbo level 4 &middot; it administrator">mbo niveau 4 &middot; ict-beheerder</p>
+          <button class="ptoggle" aria-expanded="false" aria-controls="cijfers-mbo"><span class="chev">&#x25B8;</span> <span data-en="grade">cijfer</span></button>
+          <div class="r-photo grades" id="cijfers-mbo">
+            <div class="grade-avg">
+              <span class="ga-label" data-en="grade">cijfer</span>
+              <span class="ga-num">10</span>
+            </div>
+          </div>
+        </div>
+        <span class="r-date">sep 2024 - dec 2025</span>
+      </article>
+
+      <article class="row edu-lentiz">
+        <div class="r-logo"><img src="assets/logos/lentiz.png" alt="Lentiz Geuzencollege logo"></div>
+        <div>
+          <h3 class="r-role">VMBO</h3>
+          <p class="r-org">Lentiz | Geuzencollege</p>
+          <p class="r-meta" data-en="secondary school &middot; vlaardingen">middelbare school &middot; vlaardingen</p>
+          <button class="ptoggle" aria-expanded="false" aria-controls="cijfers-vmbo"><span class="chev">&#x25B8;</span> <span data-en="grade">cijfer</span></button>
+          <div class="r-photo grades" id="cijfers-vmbo">
+            <div class="grade-avg">
+              <span class="ga-label" data-en="grade">cijfer</span>
+              <span class="ga-num">8</span>
+            </div>
+          </div>
+        </div>
+        <span class="r-date">2020 - 2024</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 04 CERTIFICATEN ============================ -->
+<section class="section" id="certificaten">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title" data-en="Certificates">Certificaten</h2>
+    </div>
+
+    <div class="rows reveal">
+      <!-- Fortinet -->
+      <div class="cert">
+        <button class="cert-head" aria-expanded="false" aria-controls="cert-fca">
+          <span class="r-logo"><img src="assets/logos/fortinet.png" alt="Fortinet"></span>
+          <span class="r-role">Fortinet Certified Associate Cybersecurity</span>
+          <span class="cert-right"><span class="r-issuer">fortinet</span><span class="chev">&#x25B8;</span></span>
+        </button>
+        <div class="cert-body" id="cert-fca">
+          <a class="alink" href="https://www.credly.com/badges/fbc55fc2-4936-4906-bc12-6832528ba54d/linked_in_profile" target="_blank" rel="noopener" data-en="view certificate">bekijk certificaat</a>
+        </div>
+      </div>
+
+      <div class="cert">
+        <button class="cert-head" aria-expanded="false" aria-controls="cert-fg76">
+          <span class="r-logo"><img src="assets/logos/fortinet.png" alt="Fortinet"></span>
+          <span class="r-role">Fortinet FortiGate 7.6 Operator</span>
+          <span class="cert-right"><span class="r-issuer">fortinet</span><span class="chev">&#x25B8;</span></span>
+        </button>
+        <div class="cert-body" id="cert-fg76">
+          <a class="alink" href="https://www.credly.com/badges/647f70c7-59c5-45e8-a2d5-db021ff3fce6/linked_in_profile" target="_blank" rel="noopener" data-en="view certificate">bekijk certificaat</a>
+        </div>
+      </div>
+
+      <div class="cert">
+        <button class="cert-head" aria-expanded="false" aria-controls="cert-nse3">
+          <span class="r-logo"><img src="assets/logos/fortinet.png" alt="Fortinet"></span>
+          <span class="r-role">Fortinet NSE 3 Certified in Cybersecurity</span>
+          <span class="cert-right"><span class="r-issuer">fortinet</span><span class="chev">&#x25B8;</span></span>
+        </button>
+        <div class="cert-body" id="cert-nse3">
+          <a class="alink" href="https://www.credly.com/badges/99e94f8f-cdde-40b9-8ff0-df0fbf420873/linked_in_profile" target="_blank" rel="noopener" data-en="view certificate">bekijk certificaat</a>
+        </div>
+      </div>
+
+      <!-- Cisco -->
+      <div class="cert">
+        <button class="cert-head" aria-expanded="false" aria-controls="cert-eh">
+          <span class="r-logo"><img src="assets/logos/cisco.svg" alt="Cisco"></span>
+          <span class="r-role">Ethical Hacker</span>
+          <span class="cert-right"><span class="r-issuer">cisco</span><span class="chev">&#x25B8;</span></span>
+        </button>
+        <div class="cert-body" id="cert-eh">
+          <a class="alink" href="https://www.credly.com/badges/5a876f14-e0d7-4f8c-9e89-e2895c6ce445/linked_in_profile" target="_blank" rel="noopener" data-en="view certificate">bekijk certificaat</a>
+        </div>
+      </div>
+
+      <div class="cert">
+        <button class="cert-head" aria-expanded="false" aria-controls="cert-nd">
+          <span class="r-logo"><img src="assets/logos/cisco.svg" alt="Cisco"></span>
+          <span class="r-role">Network Defense</span>
+          <span class="cert-right"><span class="r-issuer">cisco</span><span class="chev">&#x25B8;</span></span>
+        </button>
+        <div class="cert-body" id="cert-nd">
+          <a class="alink" href="https://www.credly.com/badges/8f543daa-d3fd-4355-a4e6-45c6c84a107d/linked_in_profile" target="_blank" rel="noopener" data-en="view certificate">bekijk certificaat</a>
+        </div>
+      </div>
+
+      <!-- Anthropic -->
+      <div class="cert">
+        <button class="cert-head" aria-expanded="false" aria-controls="cert-claude">
+          <span class="r-logo"><img src="assets/logos/anthropic.png" alt="Anthropic"></span>
+          <span class="r-role">Building with the Claude API</span>
+          <span class="cert-right"><span class="r-issuer">anthropic</span><span class="chev">&#x25B8;</span></span>
+        </button>
+        <div class="cert-body" id="cert-claude">
+          <a class="alink" href="https://verify.skilljar.com/c/ooxioab4a5oz" target="_blank" rel="noopener" data-en="view certificate">bekijk certificaat</a>
+          <span class="cert-ref">ref: ooxioab4a5oz-1782285534</span>
+        </div>
+      </div>
+
+      <div class="cert">
+        <button class="cert-head" aria-expanded="false" aria-controls="cert-ai">
+          <span class="r-logo"><img src="assets/logos/anthropic.png" alt="Anthropic"></span>
+          <span class="r-role">AI Capabilities and Limitations</span>
+          <span class="cert-right"><span class="r-issuer">anthropic</span><span class="chev">&#x25B8;</span></span>
+        </button>
+        <div class="cert-body" id="cert-ai">
+          <a class="alink" href="https://verify.skilljar.com/c/8tzhying7qiw" target="_blank" rel="noopener" data-en="view certificate">bekijk certificaat</a>
+          <span class="cert-ref">ref: 8tzhying7qiw-1782284079</span>
+        </div>
+      </div>
+
+      <!-- Hogeschool Rotterdam -->
+      <div class="cert">
+        <button class="cert-head" aria-expanded="false" aria-controls="cert-desk">
+          <span class="r-logo"><img src="assets/logos/hogeschoolrotterdam.png" alt="Hogeschool Rotterdam"></span>
+          <span class="r-role">Desk Research Advanced Beginner</span>
+          <span class="cert-right"><span class="r-issuer">hogeschool rotterdam</span><span class="chev">&#x25B8;</span></span>
+        </button>
+        <div class="cert-body" id="cert-desk">
+          <a class="alink" href="https://www.edubadges.nl/public/assertions/vA934qSgRrCuEKq-plxUjQ" target="_blank" rel="noopener" data-en="view certificate">bekijk certificaat</a>
+          <span class="cert-ref">ref: vA934qSgRrCuEKq-plxUjQ</span>
+        </div>
+      </div>
+
+      <!-- LinkedIn -->
+      <div class="cert">
+        <button class="cert-head" aria-expanded="false" aria-controls="cert-lcm">
+          <span class="r-logo"><img src="assets/logos/linkedin.png" alt="LinkedIn"></span>
+          <span class="r-role">Understanding Capital Markets (2019)</span>
+          <span class="cert-right"><span class="r-issuer">linkedin</span><span class="chev">&#x25B8;</span></span>
+        </button>
+        <div class="cert-body" id="cert-lcm">
+          <a class="alink" href="https://www.linkedin.com/learning/certificates/64a109f6dd66275abef35640d02c1a112d8e2cad98db1b471eac323e5ae4bd0b" target="_blank" rel="noopener" data-en="view certificate">bekijk certificaat</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 05 VAARDIGHEDEN ============================ -->
+<section class="section" id="vaardigheden">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title" data-en="Skills">Vaardigheden</h2>
+    </div>
+
+    <div class="skills reveal">
+      <div class="skl-row">
+        <span class="skl-label" data-en="Network &amp;amp; security">Netwerk &amp; security</span>
+        <p class="skl-items"><b>Fortinet FortiGate</b>, network monitoring, NOC, network defense, ethical hacking</p>
+      </div>
+      <div class="skl-row">
+        <span class="skl-label" data-en="Automation">Automatisering</span>
+        <p class="skl-items"><b>Python</b>, Paramiko, SSH, Cisco IOS, scripting</p>
+      </div>
+      <div class="skl-row">
+        <span class="skl-label" data-en="Systems &amp;amp; tools">Systemen &amp; tools</span>
+        <p class="skl-items" data-en="Windows, Linux, documentation, incident response">Windows, Linux, documentatie, incident response</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 06 PROJECTEN ============================ -->
+<section class="section" id="projecten">
+  <div class="wrap">
+    <div class="proj-head reveal">
+      <div class="sec-head" style="margin-bottom:0">
+        <span class="sec-num">06</span>
+        <h2 class="sec-title" data-en="Projects">Projecten</h2>
+      </div>
+      <div class="proj-nav">
+        <button class="pbtn" id="projPrev" aria-label="Vorige projecten">&#x2190;</button>
+        <button class="pbtn" id="projNext" aria-label="Volgende projecten">&#x2192;</button>
+      </div>
+    </div>
+
+    <div class="scroller reveal" id="projScroller">
+      <!-- AutoSwitch -->
+      <article class="pcard">
+        <span class="p-kicker"><img src="assets/logos/cisco.svg" alt="Cisco"> python &middot; ssh</span>
+        <h3 class="p-title">AutoSwitch</h3>
+        <p class="p-desc" data-en="Automatically reads Cisco Catalyst switches over SSH and saves the output to a text file.">Leest Cisco Catalyst-switches automatisch uit via SSH en slaat de output op in een tekstbestand.</p>
+<pre class="mini" data-lang="python">commands = ["show interfaces status",
+            "show version"]
+
+client = paramiko.SSHClient()
+client.connect(host, username=user,
+               password=password)
+
+for cmd in commands:
+    conn.send(cmd + "\n")
+    f.write(read_until_prompt(conn))
+</pre>
+        <span class="p-tags">python &middot; paramiko &middot; cisco ios</span>
+        <div class="p-foot"><a class="alink" href="https://github.com/Davidkr2007/autoswitch" target="_blank" rel="noopener" data-en="View on GitHub">Bekijk op GitHub</a></div>
+      </article>
+
+      <!-- Deze website -->
+      <article class="pcard">
+        <span class="p-kicker">html &middot; css &middot; js</span>
+        <h3 class="p-title">daviddekok.nl</h3>
+        <p class="p-desc" data-en="This website. Designed and built myself, without frameworks.">Deze website. Zelf ontworpen en gebouwd, zonder frameworks.</p>
+        <span class="p-tags">design &middot; front-end</span>
+        <div class="p-foot"><a class="alink" href="https://github.com/Davidkr2007" target="_blank" rel="noopener" data-en="My GitHub">Mijn GitHub</a></div>
+      </article>
+
+      <!-- Meer -->
+      <article class="pcard ghost">
+        <p class="p-desc" data-en="More projects to come. New work shows up on GitHub first.">Meer projecten volgen. Nieuw werk verschijnt eerst op GitHub.</p>
+        <a class="alink" href="https://github.com/Davidkr2007" target="_blank" rel="noopener">github.com/Davidkr2007</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 07 CONTACT ============================ -->
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">07</span>
+      <h2 class="sec-title">Contact</h2>
+    </div>
+    <p class="sec-sub reveal" data-en="Questions or want to collaborate? Feel free to send me an email.">Vragen of samenwerken? Mail me gerust.</p>
+
+    <div class="mailrows reveal d1">
+      <div class="mailrow">
+        <span class="mail-logo" aria-hidden="true">
+          <svg viewBox="0 49 512 400" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#4285f4" d="M34.91 448.818h81.454V251L0 163.727V413.91c0 19.287 15.622 34.909 34.91 34.909z"/>
+            <path fill="#34a853" d="M395.636 448.818h81.455c19.287 0 34.909-15.622 34.909-34.909V163.727L395.636 251z"/>
+            <path fill="#fbbc04" d="M395.636 99.727V251L512 163.727v-46.545c0-43.142-49.25-67.782-83.782-41.891z"/>
+            <path fill="#ea4335" d="M116.364 251V99.727L256 204.455 395.636 99.727V251L256 355.727z"/>
+            <path fill="#c5221f" d="M0 117.182v46.545L116.364 251V99.727L83.782 75.291C49.25 49.4 0 74.04 0 117.182z"/>
+          </svg>
+        </span>
+        <a class="mail-addr" href="mailto:daviddekok2007@gmail.com">daviddekok2007@gmail.com</a>
+        <span class="mail-tag" data-en="personal">persoonlijk</span>
+      </div>
+      <div class="mailrow">
+        <span class="mail-logo"><img src="assets/logos/hogeschoolrotterdam.png" alt="Hogeschool Rotterdam"></span>
+        <a class="mail-addr" href="mailto:1136538@hr.nl">1136538@hr.nl</a>
+        <span class="mail-tag" data-en="school">studie</span>
+      </div>
+    </div>
+
+    <nav class="contact-links reveal d2" aria-label="Sociale links">
+      <a class="alink" href="https://github.com/Davidkr2007" target="_blank" rel="noopener">GitHub</a>
+      <a class="alink" href="https://www.linkedin.com/in/david-de-kok-258004350" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </div>
+</section>
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <span>&copy; 2026 David de Kok <span class="dot">&bull;</span> rotterdam, nl</span>
+    <a href="#top" data-en="back to top &uarr;">naar boven &uarr;</a>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>

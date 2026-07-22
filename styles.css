@@ -1,0 +1,475 @@
+/* ============================================================
+   David de Kok - daviddekok.nl
+   Donker, warm accent, redactioneel. Geen frameworks.
+   ============================================================ */
+
+:root {
+  --bg:      #131418;
+  --bg-2:    #17181d;
+  --bg-code: #0e0f13;
+  --text:    #eae7e1;
+  --muted:   #9a9dab;
+  --muted-2: #6f7280;
+  --line:    rgba(255,255,255,.08);
+  --line-2:  rgba(255,255,255,.16);
+  --accent:  #e3a857;
+  --accent-soft: rgba(227,168,87,.12);
+
+  --maxw: 1000px;
+
+  --ff-display: "Space Grotesk", system-ui, sans-serif;
+  --ff-body: "IBM Plex Sans", system-ui, sans-serif;
+  --ff-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--ff-body);
+  font-size: 16.5px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: #16130c; }
+
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+.wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: clamp(1.2rem, 4vw, 2rem); }
+
+/* ---------- mono label & arrow-links ---------- */
+.mono { font-family: var(--ff-mono); }
+
+.alink {
+  font-family: var(--ff-mono); font-size: .88rem;
+  color: var(--text); text-decoration: none;
+  position: relative; padding-block: .15rem;
+}
+.alink::before { content: "\2192\00a0"; color: var(--muted-2); transition: color .18s; }
+.alink::after {
+  content:""; position: absolute; left: 0; right: 0; bottom: -2px; height: 1px;
+  background: var(--accent); transform: scaleX(0); transform-origin: left;
+  transition: transform .2s ease;
+}
+.alink:hover, .alink:focus-visible { color: var(--accent); }
+.alink:hover::before { color: var(--accent); }
+.alink:hover::after, .alink:focus-visible::after { transform: scaleX(1); }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  border-bottom: 1px solid transparent;
+  transition: background .25s ease, border-color .25s ease;
+}
+.nav.scrolled {
+  background: rgba(19,20,24,.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: var(--line);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.brand {
+  font-family: var(--ff-display); font-weight: 600; font-size: 1rem;
+  text-decoration: none; letter-spacing: -.01em;
+  display: inline-flex; align-items: center;
+}
+.brand .tld { color: var(--accent); }
+
+/* nederlands vlaggetje: verstopt achter de naam, komt tevoorschijn bij hover */
+.brand .flag {
+  width: 18px; height: 12px; border-radius: 2.5px; overflow: hidden;
+  display: inline-flex; flex-direction: column; flex: 0 0 auto;
+  margin-left: .5rem;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.14);
+  opacity: 0; transform: translateX(-10px) scale(.55);
+  transform-origin: left center;
+  transition: opacity .22s ease, transform .32s cubic-bezier(.34,1.56,.64,1);
+  pointer-events: none;
+}
+.brand .flag i { flex: 1; display: block; }
+.brand .flag i:nth-child(1) { background: #ae1c28; }
+.brand .flag i:nth-child(2) { background: #ffffff; }
+.brand .flag i:nth-child(3) { background: #21468b; }
+.brand .tld:hover + .flag, .brand .flag.show, .brand:focus-visible .flag {
+  opacity: 1; transform: translateX(0) scale(1);
+}
+.nav-links { display: flex; align-items: center; gap: 1.6rem; }
+.nav-links a {
+  font-family: var(--ff-mono); font-size: .82rem;
+  color: var(--muted); text-decoration: none;
+  transition: color .18s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a.active { color: var(--accent); }
+
+/* taalkeuze NL/EN */
+.lang {
+  display: flex; align-items: center; gap: .25rem;
+  font-family: var(--ff-mono); font-size: .8rem;
+}
+.lang button {
+  color: var(--muted-2); padding: .2rem .15rem;
+  transition: color .18s;
+}
+.lang button:hover { color: var(--text); }
+.lang button.active { color: var(--accent); }
+.lang .sep { color: var(--muted-2); }
+
+.nav-toggle { display: none; width: 42px; height: 42px; }
+.nav-toggle span { display: block; width: 20px; height: 2px; background: var(--text); margin: 4px auto; transition: .25s; }
+.nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
+#net-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero::after {
+  content:""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(19,20,24,.4), transparent 30%, transparent 60%, var(--bg) 100%);
+}
+.hero-inner { position: relative; z-index: 2; padding-block: 7rem clamp(4rem, 12vh, 7rem); }
+
+.status {
+  font-family: var(--ff-mono); font-size: .88rem; color: var(--muted);
+  margin-bottom: 1.6rem;
+}
+.status .tilde { color: var(--accent); }
+
+.hero h1 {
+  font-family: var(--ff-display); font-weight: 700;
+  font-size: clamp(2.9rem, 10vw, 5.6rem);
+  line-height: 1.0; letter-spacing: -.03em;
+}
+.hero h1 .caret { color: var(--accent); font-weight: 500; animation: blink 1.1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.tagline {
+  font-family: var(--ff-display); font-weight: 500;
+  font-size: clamp(1.05rem, 3.4vw, 1.45rem);
+  margin-top: 1.1rem; color: var(--text);
+}
+.hero-links { display: flex; flex-wrap: wrap; gap: .6rem 1.9rem; margin-top: 2.4rem; }
+
+.scroll-hint {
+  position: absolute; bottom: 1.4rem; right: clamp(1.2rem, 4vw, 2rem); z-index: 2;
+  font-family: var(--ff-mono); font-size: .72rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted-2);
+  writing-mode: vertical-rl;
+}
+
+/* ============================================================
+   SECTIES
+   ============================================================ */
+.section { border-top: 1px solid var(--line); padding-block: clamp(3.8rem, 9vw, 6rem); }
+
+.sec-head { display: flex; align-items: baseline; gap: 1.1rem; margin-bottom: 2.4rem; }
+.sec-num { font-family: var(--ff-mono); font-size: .95rem; color: var(--accent); }
+.sec-title {
+  font-family: var(--ff-display); font-weight: 700;
+  font-size: clamp(1.6rem, 4.6vw, 2.3rem); letter-spacing: -.02em; line-height: 1.1;
+}
+.sec-sub { color: var(--muted); margin-top: -1.6rem; margin-bottom: 2.2rem; max-width: 56ch; }
+
+/* ============================================================
+   OVER MIJ
+   ============================================================ */
+.about-grid { display: grid; grid-template-columns: 168px 1fr; gap: clamp(1.8rem, 5vw, 3.2rem); align-items: start; }
+.avatar {
+  width: 168px; height: 168px; border-radius: 50%;
+  object-fit: cover; object-position: center top;
+  border: 1px solid var(--line-2);
+  box-shadow: 0 14px 40px -18px rgba(0,0,0,.8);
+}
+.about-body p { color: var(--muted); margin-bottom: .95rem; max-width: 62ch; }
+.about-body p.lead { color: var(--text); font-size: 1.12rem; }
+.about-body strong { color: var(--text); font-weight: 600; }
+
+/* ============================================================
+   RIJEN (werkervaring / opleiding / certificaten)
+   ============================================================ */
+.rows { border-top: 1px solid var(--line); }
+.row {
+  display: grid; grid-template-columns: 54px 1fr auto; gap: 1.2rem;
+  padding: 1.35rem 0; border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.r-logo {
+  width: 54px; height: 54px; border-radius: 13px;
+  background: #fff; border: 1px solid var(--line-2);
+  display: grid; place-items: center; padding: 7px; overflow: hidden;
+}
+.r-logo img { width: 100%; height: 100%; object-fit: contain; }
+.r-role { font-family: var(--ff-display); font-weight: 600; font-size: 1.08rem; letter-spacing: -.01em; transition: color .3s ease; }
+
+/* schoolkleur op de titel zodra de cijfers-dropdown open is */
+.row.edu-hr     { --school: #e0281e; }  /* Hogeschool Rotterdam: rood  */
+.row.edu-tcr    { --school: #0f9e6e; }  /* Techniek College: groen     */
+.row.edu-lentiz { --school: #2b9fe0; }  /* Lentiz: blauw               */
+.row.open .r-role { color: var(--school, var(--text)); }
+.r-org { color: var(--muted); margin-top: .1rem; }
+.r-meta { font-family: var(--ff-mono); font-size: .78rem; color: var(--muted-2); margin-top: .2rem; }
+.r-desc { color: var(--muted); font-size: .95rem; margin-top: .55rem; max-width: 60ch; }
+.r-desc a {
+  color: var(--accent); text-decoration: none;
+  border-bottom: 1px solid rgba(227,168,87,.35);
+  transition: border-color .18s;
+}
+.r-desc a:hover { border-bottom-color: var(--accent); }
+.r-desc a::after { content: "\2197"; font-size: .78em; margin-left: .18em; }
+.r-date { font-family: var(--ff-mono); font-size: .8rem; color: var(--accent); white-space: nowrap; padding-top: .3rem; }
+
+/* foto-dropdown in werkervaring */
+.ptoggle {
+  margin-top: .7rem;
+  font-family: var(--ff-mono); font-size: .78rem; color: var(--muted-2);
+  display: inline-flex; align-items: center; gap: .45rem;
+  transition: color .18s;
+}
+.ptoggle:hover { color: var(--accent); }
+.ptoggle .chev { display: inline-block; transition: transform .25s ease; font-size: .7rem; }
+.ptoggle[aria-expanded="true"] { color: var(--accent); }
+.ptoggle[aria-expanded="true"] .chev { transform: rotate(90deg); }
+
+.r-photo {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height .45s cubic-bezier(.2,.7,.2,1), opacity .35s ease, margin-top .35s ease;
+}
+.r-photo.open { max-height: 480px; opacity: 1; margin-top: .95rem; }
+.r-photo img {
+  max-width: 560px; width: 100%; border-radius: 12px;
+  border: 1px solid var(--line-2);
+}
+.r-photo.grades.open { max-height: 620px; }
+
+/* cijfers-dropdown (opleiding) */
+.grade-avg { display: flex; align-items: baseline; gap: .9rem; margin-bottom: .9rem; }
+.ga-label {
+  font-family: var(--ff-mono); font-size: .74rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted-2);
+}
+.ga-num {
+  font-family: var(--ff-display); font-weight: 700; font-size: 1.55rem;
+  letter-spacing: -.02em; color: var(--accent); line-height: 1;
+}
+.grade-rows { border-top: 1px solid var(--line); max-width: 560px; }
+.grade-row {
+  display: grid; grid-template-columns: 40px 1fr 62px 56px; gap: .8rem;
+  padding: .55rem .6rem; border-bottom: 1px solid var(--line);
+  font-size: .9rem; align-items: baseline;
+  margin-inline: -.6rem;
+}
+.g-sem { font-family: var(--ff-mono); font-size: .74rem; color: var(--muted-2); }
+.g-vak { color: var(--text); }
+.g-pts { font-family: var(--ff-mono); font-size: .74rem; color: var(--muted-2); text-align: right; white-space: nowrap; }
+.g-cijfer { font-family: var(--ff-mono); font-size: .86rem; color: var(--accent); text-align: right; }
+.g-cijfer.leeg { color: var(--muted-2); }
+.g-cijfer.bezig { color: #35d07f; font-size: .74rem; }
+.grade-row.prop { background: rgba(53,208,127,.07); border-radius: 6px; }
+.grade-row.prop .g-sem { color: #35d07f; }
+.grade-note {
+  font-family: var(--ff-mono); font-size: .74rem; color: var(--muted-2);
+  display: flex; align-items: center; gap: .5rem; margin-top: .85rem;
+}
+.prop-dot { width: 9px; height: 9px; border-radius: 50%; background: #35d07f; flex: 0 0 auto; }
+
+/* certificaten: rij met dropdown */
+.cert { border-bottom: 1px solid var(--line); }
+.cert-head {
+  width: 100%; display: grid; grid-template-columns: 42px 1fr auto; gap: 1.2rem;
+  padding: 1.05rem 0; align-items: center; text-align: left;
+}
+.cert-head .r-logo { width: 42px; height: 42px; border-radius: 10px; padding: 6px; }
+.cert-head .r-role { font-size: 1rem; transition: color .18s; }
+.cert-head:hover .r-role { color: var(--accent); }
+.cert-right { display: flex; align-items: center; gap: .9rem; }
+.r-issuer { font-family: var(--ff-mono); font-size: .78rem; color: var(--muted-2); white-space: nowrap; }
+.cert-head .chev {
+  font-size: .7rem; color: var(--muted-2);
+  display: inline-block; transition: transform .25s ease, color .18s;
+}
+.cert-head:hover .chev { color: var(--accent); }
+.cert-head[aria-expanded="true"] .chev { transform: rotate(90deg); color: var(--accent); }
+
+.cert-body {
+  max-height: 0; overflow: hidden; opacity: 0;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1.6rem;
+  padding-left: calc(42px + 1.2rem);
+  transition: max-height .35s cubic-bezier(.2,.7,.2,1), opacity .3s ease, padding-bottom .3s ease;
+}
+.cert-body.open { max-height: 140px; opacity: 1; padding-bottom: 1.05rem; }
+.cert-ref { font-family: var(--ff-mono); font-size: .76rem; color: var(--muted-2); overflow-wrap: anywhere; }
+
+/* ============================================================
+   VAARDIGHEDEN
+   ============================================================ */
+.skills { border-top: 1px solid var(--line); }
+.skl-row {
+  display: grid; grid-template-columns: 230px 1fr; gap: 1.2rem;
+  padding: 1.15rem 0; border-bottom: 1px solid var(--line); align-items: baseline;
+}
+.skl-label {
+  font-family: var(--ff-mono); font-size: .78rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--accent);
+}
+.skl-items { color: var(--muted); font-size: .97rem; }
+.skl-items b { color: var(--text); font-weight: 500; }
+
+/* ============================================================
+   PROJECTEN (horizontale scroller)
+   ============================================================ */
+.proj-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 2.2rem; }
+.proj-nav { display: flex; gap: .5rem; }
+.pbtn {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid var(--line-2); color: var(--text);
+  display: grid; place-items: center; font-size: 1.05rem;
+  transition: border-color .18s, color .18s, opacity .18s;
+}
+.pbtn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.pbtn:disabled { opacity: .3; cursor: default; }
+
+.scroller {
+  display: flex; gap: 1rem;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  padding-bottom: .6rem;
+  scrollbar-width: none;
+  cursor: grab;
+}
+.scroller::-webkit-scrollbar { display: none; }
+.scroller.drag { cursor: grabbing; scroll-snap-type: none; }
+.scroller.drag * { user-select: none; }
+
+.pcard {
+  flex: 0 0 auto; width: min(430px, 86vw);
+  scroll-snap-align: start;
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px;
+  padding: 1.5rem 1.55rem 1.4rem;
+  display: flex; flex-direction: column; gap: .85rem;
+  transition: border-color .2s, transform .2s;
+}
+.pcard:hover { border-color: var(--line-2); transform: translateY(-3px); }
+.p-kicker {
+  font-family: var(--ff-mono); font-size: .74rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--accent);
+  display: flex; align-items: center; gap: .55rem;
+}
+.p-kicker img { height: 14px; width: auto; }
+.p-title { font-family: var(--ff-display); font-weight: 700; font-size: 1.45rem; letter-spacing: -.02em; }
+.p-desc { color: var(--muted); font-size: .95rem; }
+pre.mini {
+  background: var(--bg-code); border: 1px solid var(--line); border-radius: 10px;
+  padding: .9rem 1rem; overflow: hidden;
+  font-family: var(--ff-mono); font-size: .74rem; line-height: 1.6; color: #c6c9d6;
+}
+.p-tags { font-family: var(--ff-mono); font-size: .76rem; color: var(--muted-2); }
+.p-foot { margin-top: auto; padding-top: .4rem; }
+
+.pcard.ghost {
+  border-style: dashed; background: transparent;
+  align-items: center; justify-content: center; text-align: center; gap: 1rem;
+  min-height: 260px;
+}
+.pcard.ghost .p-desc { max-width: 26ch; }
+
+/* syntax accenten */
+.tok-kw { color: #d8a0df; } .tok-fn { color: #8ab4f8; } .tok-str { color: #b5cea8; }
+.tok-com { color: #5f6473; font-style: italic; } .tok-num { color: #e8ab7c; } .tok-bi { color: #e3c78a; }
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.mailrows { border-top: 1px solid var(--line); max-width: 640px; }
+.mailrow {
+  display: flex; align-items: center; gap: 1.1rem;
+  padding: 1.25rem 0; border-bottom: 1px solid var(--line);
+}
+.mail-logo {
+  flex: 0 0 auto; width: 46px; height: 46px; border-radius: 12px;
+  background: #fff; border: 1px solid var(--line-2);
+  display: grid; place-items: center; padding: 10px;
+}
+.mail-logo img, .mail-logo svg { width: 100%; height: auto; }
+.mail-addr {
+  font-family: var(--ff-display); font-weight: 600;
+  font-size: clamp(1.02rem, 3.4vw, 1.35rem); letter-spacing: -.01em;
+  text-decoration: none; transition: color .18s;
+  overflow-wrap: anywhere;
+}
+.mail-addr:hover { color: var(--accent); }
+.mail-tag { margin-left: auto; font-family: var(--ff-mono); font-size: .74rem; color: var(--muted-2); white-space: nowrap; }
+.contact-links { display: flex; flex-wrap: wrap; gap: .6rem 1.9rem; margin-top: 1.8rem; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer.foot { border-top: 1px solid var(--line); padding-block: 1.8rem; }
+.foot-inner {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .8rem;
+  font-family: var(--ff-mono); font-size: .76rem; color: var(--muted-2);
+}
+.foot-inner .dot { color: var(--accent); }
+.foot-inner a { color: var(--muted-2); text-decoration: none; }
+.foot-inner a:hover { color: var(--accent); }
+
+/* ============================================================
+   REVEAL
+   ============================================================ */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s cubic-bezier(.2,.7,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal.d1 { transition-delay: .07s; }
+.reveal.d2 { transition-delay: .14s; }
+
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 820px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .avatar { width: 140px; height: 140px; }
+  .skl-row { grid-template-columns: 1fr; gap: .3rem; padding: 1rem 0; }
+}
+@media (max-width: 720px) {
+  .nav-links {
+    position: fixed; inset: 62px 0 auto 0;
+    flex-direction: column; align-items: flex-start; gap: 0;
+    background: rgba(19,20,24,.97); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: .6rem clamp(1.2rem, 4vw, 2rem) 1.2rem;
+    transform: translateY(-130%); transition: transform .3s cubic-bezier(.2,.7,.2,1);
+  }
+  .nav-links.open { transform: none; }
+  .nav-links a { padding: .7rem 0; font-size: .95rem; width: 100%; }
+  .nav-toggle { display: block; }
+
+  .row { grid-template-columns: 44px 1fr; }
+  .r-logo { width: 44px; height: 44px; border-radius: 11px; padding: 6px; }
+  .r-date { grid-column: 2; padding-top: 0; margin-top: .1rem; }
+  .cert-head { grid-template-columns: 38px 1fr auto; gap: .9rem; }
+  .cert-head .r-logo { width: 38px; height: 38px; }
+  .cert-right .r-issuer { display: none; }
+  .cert-body { padding-left: calc(38px + .9rem); }
+
+  .grade-row { grid-template-columns: 32px 1fr 52px 46px; gap: .55rem; font-size: .85rem; }
+
+  .mail-tag { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+  .hero h1 .caret { animation: none; }
+}
